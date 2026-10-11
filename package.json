@@ -1,0 +1,36 @@
+{
+  "name": "mytools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,ui \"node --watch --env-file-if-exists=.env server/index.js\" \"vite --host 127.0.0.1\"",
+    "build": "vite build",
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "test": "node --test test/*.test.js",
+    "test:ui": "playwright test",
+    "check": "npm test && npm run build && npm run test:ui",
+    "mcp": "node --env-file-if-exists=.env server/mcp.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@napi-rs/keyring": "2.1.0",
+    "express": "^5.1.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "vite": "^6.1.0"
+  },
+  "overrides": {
+    "shell-quote": "^1.11.0"
+  }
+}

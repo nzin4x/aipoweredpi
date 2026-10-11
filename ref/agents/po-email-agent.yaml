@@ -1,0 +1,17 @@
+id: po-email-agent
+name: PO Email Agent
+description: "Analyze recent PO-related Outlook sent emails and produce unanswered summary (markdown + csv). Runs locally against Outlook.sqlite Legacy profile."
+owner: "nz@hyundai-autoever.com"
+entrypoint: "python3 scripts/po_email_agent.py"
+run: "python3 scripts/po_email_agent.py --days 30 --out /tmp/po_unanswered.md --csv /tmp/po_unanswered.csv"
+triggers:
+  - manual
+  - schedule: "@daily"
+permissions:
+  read: ["Outlook.sqlite"]
+  write: ["/tmp/po_unanswered.md", "/tmp/po_unanswered.csv"]
+notes: |
+  - Requires local access to Outlook Legacy profile DB at:
+    ~/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles/Main Profile/Data/Outlook.sqlite
+  - Does NOT transmit data externally; outputs local files.
+  - To run as a scheduled job, ensure user session and file accessibility are available.

@@ -1,0 +1,16 @@
+id: po-weekly-report-agent
+name: PO Weekly Report Agent
+description: "Compose weekly PO meeting report by combining 3 factors: Product xlsx notes, PO email summary, and Confluence weekly minutes"
+owner: "nz@hyundai-autoever.com"
+entrypoint: "python3 scripts/weekly_po_meeting_orchestrator.py"
+run: "python3 scripts/weekly_po_meeting_orchestrator.py --week-start 2026-05-19 --report-xlsx \"report/Product 담당자별 데일리스크럼 통합기록 (hcloud 관련부).xlsx\" --template \"confluence/clouddevteam-private/22.회의록/20260519-hCloudPO주간업무.md\" --output \"confluence/clouddevteam-private/22.회의록/20260516-hCloudPO주간업무.md\""
+triggers:
+  - manual
+permissions:
+  read: ["report/*.xlsx", "confluence/**/*.md", "outputs/po_unanswered.md"]
+  write: ["confluence/**/*.md"]
+notes: |
+  - Recommended sequence:
+    1) Run po-email-agent for latest 7 days
+    2) Run po-weekly-report-agent for synthesis
+  - This agent does not push to Confluence automatically.
